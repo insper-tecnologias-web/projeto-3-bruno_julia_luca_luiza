@@ -1,0 +1,26 @@
+{% extends "filmes/base.html" %}
+{% load static %}
+
+{% block content %}
+<img src="{% static 'filmes/img/logo.png' %}" />
+<p>Como o Post-it, mas com outro verbo</p>
+
+<form method="post">
+    {% csrf_token %}
+  <label for="id">Id</label>
+  <input id="id" type="text" name="id" />
+  <input type="submit" /> 
+</form>
+
+<ul>
+    {% for filme in filmes %}
+    <li>
+        <li>{{filme.id}}</li>
+        <img src="{{filme.primaryImage.url}}" alt="" style="width: 8rem;height: 10rem;" srcset="{{filme.primaryImage.url}},https://via.placeholder.com/300x200?text=Imagem+N%C3%A3o+Dispon%C3%ADvel"  >
+        <li>{{filme.titleText.text }}</li>
+        <li>{{filme.releaseYear.year}}</li>
+    </li>
+    {% endfor %}
+  </ul>
+  
+{% endblock %}
