@@ -1,0 +1,77 @@
+.card {
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    margin: 10px 5px;
+    padding: 10px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+    border-radius: 5px;
+    font-family: "Permanent Marker", cursive;
+    background-color: #20161C;
+  }
+  
+  .capa{
+    width: 20px;
+    height: 30px;
+    margin-bottom: 2rem;
+  }
+
+  .card-title {
+    font-family: Stencil Std;
+    font-weight: bold;
+    line-height: 1.2;
+    font-size: 1.2rem;
+    color: #f5f5dc;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: #9B67F5;
+  }
+
+  .curtir-btn{
+    align-self: flex-end;
+    margin-right: 0.5rem;
+  }
+
+  .img-logo {
+    width: inherit;
+    height: inherit;
+  }
+  
+  .img-curtida {
+    width: inherit;
+    height: inherit;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #20161C;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+    border-radius: 5px;
+  }
+
+.link {
+  width: 10rem;
+  height: 10rem;
+  }
+
+  .filmes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2%;
+  }
+
+.filme {
+  margin-right: 2%;
+}
