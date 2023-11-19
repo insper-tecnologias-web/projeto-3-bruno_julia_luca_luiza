@@ -1,1 +1,5 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Jt8DU81q)
+[] 21/11 - Buscar filme por nome (Julia)
+[] 21/11 - Menu de gêneros (Julia e Luca)
+[] 23/11 - Delete dos filmes curtidos e rating do filme (Luiza)
+[] 23/11 - Descrição do filme ao expandir (Luca)
+[] 28/11 - Autenticação (Bruno)
