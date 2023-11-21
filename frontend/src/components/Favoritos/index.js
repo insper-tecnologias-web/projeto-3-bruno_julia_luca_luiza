@@ -10,8 +10,8 @@ export default function Favoritos(props) {
   const [filmes, setFilmes] = useState([]);
   const carregaMeusFilmes = () =>{
     axios
-      // .get("http://127.0.0.1:8000/filmes")
-      .get("https://moviefy-backend.onrender.com/filmes")
+      .get("http://127.0.0.1:8000/filmes")
+      // .get("https://moviefy-backend.onrender.com/filmes")
       .then((res) => setFilmes(res.data));
     }
 
@@ -33,7 +33,7 @@ export default function Favoritos(props) {
     <div className="flex flex-row flex-wrap justify-center">
     {filmes.map((filme) => (
         <div className="mx-2">
-          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0}>{filme.year} </Filme>
+          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info}>{filme.year} </Filme>
           {/* <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.primaryImage.url} title={filme.titleText.text}>{filme.releaseYear.year}</Filme> */}
         </div>
         ))}
