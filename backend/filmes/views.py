@@ -94,12 +94,28 @@ def api_filme(request,filme_id=None):
     if request.method == 'DELETE':
         try:
             filme = Filme.objects.get(id=filme_id)
-            print(filme)
+            print('O filme {filme} foi deletado com exito'.format(filme=filme))
             filme.delete()
             return Response(status=204)
         except Filme.DoesNotExist:
             raise Http404()
 
+
+@api_view(['GET'])
+def api_search(request,title=None):
+    if request.method == 'GET':
+        querystring = {"titleType":"movie","limit":"50","info":"base_info","list":"top_boxoffice_200"}
+        headers = {
+            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+        }
+        url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/%7Bid%7D".format(id=title)
+        response = requests.get(url, headers=headers, params=querystring)
+        filmes = response.json()['results']
+
+        print("Sua busca foi realizada com sucesso!")
+
+        return Response(filmes)
 
 
 # def api_filme_add(request,filme_id):

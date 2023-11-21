@@ -8,7 +8,7 @@ export default function Delete(props) {
     const DeletarFilme = async () => {
 
         await axios
-          .delete("http://127.0.0.1:8000/filmes", {id:props.index})
+          .delete("http://127.0.0.1:8000/filmes/" +  props.index +'/')
         //   .delete("https://moviefy-backend.onrender.com/filmes", {id:props.index})
           .then((response) => {
             console.log(response.data);
