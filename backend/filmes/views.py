@@ -9,7 +9,8 @@ from .serializers import FilmSerializer
 
 #Definindo a URL e os parâmetros da API com catalogo de filmes
 url = "https://moviesdatabase.p.rapidapi.com/titles"
-querystring = {"titleType":"movie","sort":"year.decr","endYear":"2023","limit":"50"}
+# querystring = {"titleType":"movie","sort":"year.decr","endYear":"2023","limit":"50"}
+querystring = {"titleType":"movie","limit":"50","info":"base_info","list":"top_boxoffice_200"}
 headers = {
 	"X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
 	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
@@ -42,7 +43,8 @@ def index(request):
 @api_view(['GET', 'POST'])
 def api_catalogo(request,filme_id=None):
     url = "https://moviesdatabase.p.rapidapi.com/titles/random"
-    querystring = {"sort":"year.decr","limit":"50","endYear":"2023","list":"most_pop_movies"}
+    # querystring = {"sort":"year.decr","limit":"50","endYear":"2023","list":"most_pop_movies"}
+    querystring = {"titleType":"movie","limit":"50","info":"base_info","list":"top_boxoffice_200"}
     headers = {
 	    "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
 	    "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
@@ -69,9 +71,10 @@ def api_catalogo(request,filme_id=None):
             filme['capa'] = filmecompleto['primaryImage']['url']
         filme['title'] = filmecompleto['titleText']['text']
         filme['year'] = filmecompleto['releaseYear']['year']
+        filme['info'] = filmecompleto['plot']['plotText']['plainText']
         print('FILME:',filme)
 
-        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'])
+        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'], info=filme['info'])
         serialized_filme = FilmSerializer(filme)
         return Response(serialized_filme.data)
 

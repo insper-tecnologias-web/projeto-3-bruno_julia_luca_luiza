@@ -6,6 +6,7 @@ class Filme(models.Model):
     capa = models.TextField(null=True, blank=True)
     title = models.TextField()
     year = models.IntegerField(null=True, blank=True)
+    info = models.TextField(null=True, blank=True)
     
     def __str__(self):
         return f'{self.id}.{self.title}-{self.year}'

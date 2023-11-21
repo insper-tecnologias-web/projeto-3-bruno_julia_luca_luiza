@@ -81,13 +81,22 @@ WSGI_APPLICATION = 'getit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DESCOMENTE A LINHA ABAIXO PARA RODAR LOCALMENTE
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://moviefy_back_user:fejmhQ250Gr3jWkEgdHP7BnmVAJqBaiw@dpg-cl7a9o30p3is73fdja80-a.ohio-postgres.render.com/moviefy_back',
-        conn_max_age=600,
-        ssl_require=not DEBUG
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+#DESCOMENTE AS LINHAS ABAIXO PARA RODAR NO RENDER
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://moviefy_back_user:fejmhQ250Gr3jWkEgdHP7BnmVAJqBaiw@dpg-cl7a9o30p3is73fdja80-a.ohio-postgres.render.com/moviefy_back',
+#         conn_max_age=600,
+#         ssl_require=not DEBUG
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
