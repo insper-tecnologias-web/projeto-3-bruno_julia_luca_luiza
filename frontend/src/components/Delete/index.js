@@ -12,6 +12,7 @@ export default function Delete(props) {
         //   .delete("https://moviefy-backend.onrender.com/filmes", {id:props.index})
           .then((response) => {
             console.log(response.data);
+            window.location.reload();
           })
             .catch((error) => {
                 console.log(error);
