@@ -6,4 +6,5 @@ urlpatterns = [
     path('filmes', views.api_filme),
     path('title/<str:title>',views.api_search),
     path('<str:filme_id>',views.api_catalogo),
+    path('filmes/<str:filme_id>/',views.api_filme),
 ]

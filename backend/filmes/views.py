@@ -39,6 +39,13 @@ def index(request):
             return render(request, 'filmes/index.html', {'filmes': response.json()['results']})
 
             # return JsonResponse(all_filmes)
+
+# def delete(request,filme_id):
+#     if request.method == 'POST':
+#         Filme.objects.filter(id=filme_id).delete()
+#         return redirect('filmes:index')
+    
+
     
 @api_view(['GET', 'POST'])
 def api_catalogo(request,filme_id=None):
@@ -78,24 +85,21 @@ def api_catalogo(request,filme_id=None):
         serialized_filme = FilmSerializer(filme)
         return Response(serialized_filme.data)
 
-@api_view(['GET'])
-def api_filme(request):
+@api_view(['GET', 'DELETE'])
+def api_filme(request,filme_id=None):
     if request.method == 'GET':
         films = Filme.objects.all()
         serializer = FilmSerializer(films, many=True)
         return Response(serializer.data)
-    
-@api_view(['GET'])
-def api_search(request,title):
-    if request.method == 'GET':
-        querystring = {"sort":"year.decr","limit":"50","endYear":"2023"}
-        headers = {
-            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
-            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
-        }
-        url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/{id}".format(id=title)
-        response = requests.get(url, headers=headers, params=querystring)
-        return Response(response.json()['results'])
+    if request.method == 'DELETE':
+        try:
+            filme = Filme.objects.get(id=filme_id)
+            print(filme)
+            filme.delete()
+            return Response(status=204)
+        except Filme.DoesNotExist:
+            raise Http404()
+
 
 
 # def api_filme_add(request,filme_id):
