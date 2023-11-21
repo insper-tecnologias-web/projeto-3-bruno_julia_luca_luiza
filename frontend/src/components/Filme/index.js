@@ -15,6 +15,7 @@ export default function Filme(props) {
         <h3 className="text-[#f5f5dc] text-lg	font-['Roboto'] font-extrabold text-center">{props.title}</h3>
         <div className="text-[#f5f5dc] text-lg	font-['Roboto'] text-center">{props.children}</div>
       </div>
+      <div className="gruop-hover:transition group-hover:ease-in-out group-hover:ml-10 group-hover:delay-300 invisible w-[0px] group-hover:visible group-hover:w-[200px] flex flex-col justify-center flex-wrap whitespace-normal text-[#f5f5dc] text-lg	font-['Roboto'] text-center">{props.info}</div>
     </div>
   );
 }
