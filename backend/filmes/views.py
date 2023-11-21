@@ -86,16 +86,20 @@ def api_filme(request):
         return Response(serializer.data)
     
 @api_view(['GET'])
-def api_search(request,title):
+def api_search(request,title=None):
     if request.method == 'GET':
-        querystring = {"sort":"year.decr","limit":"50","endYear":"2023"}
+        querystring = {"titleType":"movie","limit":"50","info":"base_info","list":"top_boxoffice_200"}
         headers = {
             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
         }
         url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/{id}".format(id=title)
         response = requests.get(url, headers=headers, params=querystring)
-        return Response(response.json()['results'])
+        filmes = response.json()['results']
+
+        print("Sua busca foi realizada com sucesso!")
+
+        return Response(filmes)
 
 
 # def api_filme_add(request,filme_id):

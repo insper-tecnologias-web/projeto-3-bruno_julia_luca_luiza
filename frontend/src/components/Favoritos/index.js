@@ -37,7 +37,7 @@ export default function Favoritos(props) {
           {/* <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.primaryImage.url} title={filme.titleText.text}>{filme.releaseYear.year}</Filme> */}
         </div>
         ))}
-      </div>
+    </div>
     </>
   );
 }
