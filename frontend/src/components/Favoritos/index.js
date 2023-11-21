@@ -36,7 +36,7 @@ export default function Favoritos() {
           <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info}>{filme.year} </Filme>
         </div>
         ))}
-      </div>
+    </div>
     </>
   );
 }

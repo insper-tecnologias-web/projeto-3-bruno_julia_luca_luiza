@@ -6,6 +6,7 @@ import {SearchBar} from "./components/SearchBar";
 import { Link } from "react-router-dom";
 import "./App.css";
 
+
 function App() {
   const [filmes, setFilmes] = useState([]);
 
@@ -26,8 +27,7 @@ function App() {
               <img src='./logo.png' alt="Pagina Inicial"/>
             </Link>
 
-
-            <div classname="search-bar">
+            <div className="search-bar">
               <SearchBar />
             </div>
 
