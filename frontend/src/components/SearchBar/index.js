@@ -12,7 +12,7 @@ export const SearchBar = () => {
         axios
         //.get("https://moviefy-backend.onrender.com/title/" + value);
         .get("http://127.0.0.1:8000/title/" + value)
-        .then((res) => console.log(res.data));
+        .then((res) => {setInput(res.data)})
     }
 
     const mudaDados = (value) => {

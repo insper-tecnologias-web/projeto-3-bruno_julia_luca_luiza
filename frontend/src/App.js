@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "./components/Filme";
 import {SearchBar} from "./components/SearchBar";
+import Login from "./components/Login";
 import { Link } from "react-router-dom";
 import "./App.css";
 
+
 function App() {
+  const [token, setToken] = useState();
   const [filmes, setFilmes] = useState([]);
 
   const carregaFilmes = () =>{
@@ -18,6 +21,13 @@ function App() {
     useEffect(() => {
       carregaFilmes();
     },[]);
+  
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
+
+
+
   return (
 
     <div className="bg-[rgb(15.7 17.3 20.4)]">
@@ -27,7 +37,7 @@ function App() {
             </Link>
 
 
-            <div classname="search-bar">
+            <div className="search-bar">
               <SearchBar />
             </div>
 
