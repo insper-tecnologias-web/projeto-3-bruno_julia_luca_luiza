@@ -104,7 +104,7 @@ def api_filme(request,filme_id=None):
 @api_view(['GET'])
 def api_search(request,title):
     if request.method == 'GET':
-        querystring = {"titleType":"movie","limit":"50","info":"base_info"}
+        querystring = {"exact":"false","info":"base_info","endYear":"2023","titleType":"movie","limit":"50"}
         headers = {
             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
@@ -133,26 +133,6 @@ def api_genre(request):
 
         return Response(generos)
 
-# @api_view(['GET'])
-# def api_genre_search(request, genre):
-#     if request.method == 'GET':
-        
-#         headers = {
-#             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
-#             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
-#         }
-
-#         query = {"titleType":"movie","list":"top_boxoffice_200", "genre":genre}
-
-#         url = "https://moviesdatabase.p.rapidapi.com/titles/random"
-
-#         response = requests.get(url, headers=headers, params=query)
-
-#         filmes_genero = response.json()['results']
-#         print("Seus filmes foram encontrados com sucesso!")
-#         print(filmes_genero)
-
-#         return Response(filmes_genero)
 
 @api_view(['GET'])
 def api_genre_search(request, genre):
@@ -163,7 +143,6 @@ def api_genre_search(request, genre):
             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
         }
 
-        # Ajuste na construção da query
         query = {
             "titleType": "movie",
             "list": "top_boxoffice_200",
@@ -185,28 +164,3 @@ def api_genre_search(request, genre):
             print(f"Erro ao buscar filmes: {e}")
             return Response({"error": "Erro ao buscar filmes"}, status=500)
 
-
-
-# def api_filme_add(request,filme_id):
-#     if request.method == 'POST':
-#         try: 
-#             url = "https://moviesdatabase.p.rapidapi.com/titles/{filme_id}}"
-#             response = requests.get(url, headers=headers, params=querystring)
-#             filme = response.json()['results']
-#             print(filme)
-#             if filme['primaryImage'] is not None:
-#                 capa = filme['primaryImage']['url']
-#             else:
-#                 capa = "https://via.placeholder.com/300x200?text=Imagem+N%C3%A3o+Dispon%C3%ADvel/"
-#                 title = filme['titleText']['text']
-#                 year = filme['releaseYear']['year']
-#             Filme.objects.create(id=filme_id,capa=capa,title=title['title'], year=year)
-#             films = Filme.objects.all()
-#             serializer = FilmSerializer(films, many=True)
-#             return render(request, 'filmes/index.html', {'filmes': serializer.data})
-#             #return Response(serializer.data)
-#         except: 
-#             films = Filme.objects.all()
-#             serializer = FilmSerializer(films, many=True)
-#             return render(request, 'filmes/index.html', {'filmes': serializer.data})
-#             #return Response(serializer.data)
