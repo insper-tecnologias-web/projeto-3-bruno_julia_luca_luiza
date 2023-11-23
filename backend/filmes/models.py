@@ -7,6 +7,7 @@ class Filme(models.Model):
     title = models.TextField()
     year = models.IntegerField(null=True, blank=True)
     info = models.TextField(null=True, blank=True)
+    ratings = models.IntegerField(null=True, blank=True)
     
     def __str__(self):
         return f'{self.id}.{self.title}-{self.year}'

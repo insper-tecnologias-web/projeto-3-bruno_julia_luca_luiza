@@ -39,8 +39,8 @@ function App() {
       </header>
       <div className="mx-[150px] flex flex-row flex-wrap justify-center ">
       {filmes.map((filme) => (
-        <div className="mx-2">
-          <Filme key={`filme__${filme.id}`} id={filme.id} capa={filme.primaryImage != null? filme.primaryImage.url:"https://fastly.picsum.photos/id/250/800/1200.jpg?hmac=mLfkxoNEwjCn6yE7Y7c4ExK1GoWmo69QwYcxQ7Rns_E"} title={filme.titleText.text} curtir={1} info={filme.plot.plotText.plainText}>{filme.releaseYear.year} </Filme>
+        <div key={filme.id} className="mx-2">
+          <Filme key={`${filme.id}`} id={filme.id} capa={filme.primaryImage != null? filme.primaryImage.url:"https://fastly.picsum.photos/id/250/800/1200.jpg?hmac=mLfkxoNEwjCn6yE7Y7c4ExK1GoWmo69QwYcxQ7Rns_E"} title={filme.titleText.text} curtir={1} info={filme.plot.plotText.plainText}>{filme.releaseYear.year} </Filme>
         </div>
         ))}
       </div>

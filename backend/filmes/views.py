@@ -116,3 +116,18 @@ def api_search(request,title=None):
         print("Sua busca foi realizada com sucesso!")
 
         return Response(filmes)
+
+@api_view(['POST'])
+def api_ratings(request,filme_id=None, ratings=None):
+    if request.method == 'POST':
+        print('*'*100)
+
+        try:
+            filme = Filme.objects.get(id=filme_id)
+            filme.ratings = ratings
+            print(filme)
+            print(ratings)
+            filme.save()
+            return Response(status=204)
+        except Filme.DoesNotExist:
+            raise Http404()
