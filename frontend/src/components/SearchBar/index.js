@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {FaSearch} from "react-icons/fa"
 import "./index.css"
 import axios from "axios";
-import Filme from "../Filme";
 
 export const SearchBar = (props) => {
 
