@@ -102,20 +102,89 @@ def api_filme(request,filme_id=None):
 
 
 @api_view(['GET'])
-def api_search(request,title=None):
+def api_search(request,title):
     if request.method == 'GET':
-        querystring = {"titleType":"movie","limit":"50","info":"base_info","list":"top_boxoffice_200"}
+        querystring = {"titleType":"movie","limit":"50","info":"base_info"}
         headers = {
             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
         }
-        url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/%7Bid%7D".format(id=title)
+        url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/{id}".format(id=title)
         response = requests.get(url, headers=headers, params=querystring)
         filmes = response.json()['results']
 
         print("Sua busca foi realizada com sucesso!")
 
         return Response(filmes)
+    
+@api_view(['GET'])
+def api_genre(request):
+    if request.method == 'GET':
+        
+        headers = {
+            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+        }
+        url = "https://moviesdatabase.p.rapidapi.com/titles/utils/genres"
+        response = requests.get(url, headers=headers)
+
+        generos = response.json()['results']
+        #print(generos)
+
+        return Response(generos)
+
+# @api_view(['GET'])
+# def api_genre_search(request, genre):
+#     if request.method == 'GET':
+        
+#         headers = {
+#             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+#             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+#         }
+
+#         query = {"titleType":"movie","list":"top_boxoffice_200", "genre":genre}
+
+#         url = "https://moviesdatabase.p.rapidapi.com/titles/random"
+
+#         response = requests.get(url, headers=headers, params=query)
+
+#         filmes_genero = response.json()['results']
+#         print("Seus filmes foram encontrados com sucesso!")
+#         print(filmes_genero)
+
+#         return Response(filmes_genero)
+
+@api_view(['GET'])
+def api_genre_search(request, genre):
+    if request.method == 'GET':
+        
+        headers = {
+            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+        }
+
+        # Ajuste na construção da query
+        query = {
+            "titleType": "movie",
+            "list": "top_boxoffice_200",
+            "limit":"50",
+            "info":"base_info",
+            "genre": genre
+        }
+
+        url = "https://moviesdatabase.p.rapidapi.com/titles/random"
+
+        try:
+            response = requests.get(url, headers=headers, params=query)
+            response.raise_for_status()  # Isso verifica se houve erro na requisição
+            filmes_genero = response.json()['results']
+            print("Seus filmes foram encontrados com sucesso!")
+            print(filmes_genero)
+            return Response(filmes_genero)
+        except requests.exceptions.RequestException as e:
+            print(f"Erro ao buscar filmes: {e}")
+            return Response({"error": "Erro ao buscar filmes"}, status=500)
+
 
 
 # def api_filme_add(request,filme_id):

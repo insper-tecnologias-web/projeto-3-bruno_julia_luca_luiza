@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "./components/Filme";
 import {SearchBar} from "./components/SearchBar";
+import {Menu} from "./components/Menu";
 import { Link } from "react-router-dom";
 import "./App.css";
 
@@ -30,9 +31,13 @@ function App() {
             <div className="search-bar">
               <SearchBar />
             </div>
-
-
             <h1 className="title">Meus Filmes</h1>
+            <div>
+              <Menu />
+            </div>
+
+
+            
             <Link to="/filmes" className="w-28 h-28 my-2">
               <img src='./curti.png' alt="FIlmes Curtidos" className="mr-10 rounded-md bg-indigo-900 p-1 border-2 border-slate-400 hover:bg-indigo-800 hover:scale-110"/>
             </Link>
