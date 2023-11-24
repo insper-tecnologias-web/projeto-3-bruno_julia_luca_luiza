@@ -29,7 +29,7 @@ export const SearchBar = (props) => {
                 defaltvalue={input}
                 onChange={(e) => setInput(e.target.value)}
                 />
-                <button type="submit"> Submit </button>
+                <button className='fonte2' type="submit"> Submit </button>
             </form>
         </div>  
     );

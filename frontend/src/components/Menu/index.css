@@ -1,36 +1,35 @@
 /* Estilo para o seletor .fonte */
 .fonte {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    padding: 8px;
-  }
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  padding: 8px;
+}
+
+/* Estilo para o seletor .fonte2 */
+.fonte2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  padding: 3px 3px;
+  background-color: #6508c9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
   
-  /* Estilo para o seletor .fonte2 */
-  .fonte2 {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    padding: 3px 3px;
-    background-color: #6508c9;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    
-  }
-  
-  /* Estilo para o seletor .fonte2:hover (estado quando o mouse está sobre o botão) */
-  .fonte2:hover {
-    background-color: #2980b9;
-  }
-  
-  /* Estilo para o seletor .container-botoes */
-  .container-botoes {
-    display: flex;
-    margin-top: 20px;
-  }
-  
-  /* Estilo para o seletor .container-botoes button + button (estilo para o segundo botão e posteriores) */
-  .container-botoes button + button {
-    margin-left: 10px;
-  }
-  
+}
+
+/* Estilo para o seletor .fonte2:hover (estado quando o mouse está sobre o botão) */
+.fonte2:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo para o seletor .container-botoes */
+.container-botoes {
+  display: flex;
+  margin-top: 20px;
+}
+
+/* Estilo para o seletor .container-botoes button + button (estilo para o segundo botão e posteriores) */
+.container-botoes button + button {
+  margin-left: 10px;
+}
