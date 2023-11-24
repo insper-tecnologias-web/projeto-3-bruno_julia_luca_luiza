@@ -36,7 +36,7 @@ function App() {
             </div>
             <h1 className="title">Meus Filmes</h1>
             <div>
-              <Menu />
+              <Menu funcao={setFilmesCall}/>
             </div>
 
 
