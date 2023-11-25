@@ -36,10 +36,10 @@ export default function StarRating(props) {
     }
 
   return (
-        <div>
+        <div className="mr-0 ml-20 text-violet-300" >
             <Rating
-            id={props.id}	
-                name="feedback"
+                id={props.id}	
+                name={props.id}
                 value={value}
                 precision={1}
                 size="small"
