@@ -9,4 +9,5 @@ urlpatterns = [
     path('generos',views.api_genre),
     path('<str:filme_id>',views.api_catalogo),
     path('filmes/<str:filme_id>/',views.api_filme),
+    path('filmes/ratings/<str:filme_id>/<int:ratings>/',views.api_ratings),
 ]

@@ -5,4 +5,4 @@ from .models import Filme
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filme
-        fields = ['id','capa', 'title', 'year', 'info']
+        fields = ['id','capa', 'title', 'year', 'info','ratings']
