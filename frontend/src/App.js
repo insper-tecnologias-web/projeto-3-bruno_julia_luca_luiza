@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "./components/Filme";
 import {SearchBar} from "./components/SearchBar";
+import {Menu} from "./components/Menu";
 import { Link } from "react-router-dom";
 import "./App.css";
 
 
 function App() {
   const [filmes, setFilmes] = useState([]);
+  function setFilmesCall(filmes){
+    setFilmes(filmes);
+  }
 
   const carregaFilmes = () =>{
     axios
@@ -28,11 +32,15 @@ function App() {
             </Link>
 
             <div className="search-bar">
-              <SearchBar />
+              <SearchBar funcao={setFilmesCall}/>
+            </div>
+            <h1 className="title">Meus Filmes</h1>
+            <div>
+              <Menu funcao={setFilmesCall}/>
             </div>
 
 
-            <h1 className="title">Meus Filmes</h1>
+            
             <Link to="/filmes" className="w-28 h-28 my-2">
               <img src='./curti.png' alt="FIlmes Curtidos" className="mr-10 rounded-md bg-indigo-900 p-1 border-2 border-slate-400 hover:bg-indigo-800 hover:scale-110"/>
             </Link>
@@ -40,7 +48,7 @@ function App() {
       <div className="mx-[150px] flex flex-row flex-wrap justify-center ">
       {filmes.map((filme) => (
         <div key={filme.id} className="mx-2">
-          <Filme key={`${filme.id}`} id={filme.id} capa={filme.primaryImage != null? filme.primaryImage.url:"https://fastly.picsum.photos/id/250/800/1200.jpg?hmac=mLfkxoNEwjCn6yE7Y7c4ExK1GoWmo69QwYcxQ7Rns_E"} title={filme.titleText.text} curtir={1} info={filme.plot.plotText.plainText}>{filme.releaseYear.year} </Filme>
+          <Filme key={`${filme.id}`} id={filme.id} capa={filme.primaryImage != null? filme.primaryImage.url:"https://fastly.picsum.photos/id/250/800/1200.jpg?hmac=mLfkxoNEwjCn6yE7Y7c4ExK1GoWmo69QwYcxQ7Rns_E"} title={filme.titleText.text} curtir={1} info={filme.plot?.plotText != null? filme.plot.plotText.plainText:'Sem plot'}>{filme.releaseYear.year} </Filme>
         </div>
         ))}
       </div>

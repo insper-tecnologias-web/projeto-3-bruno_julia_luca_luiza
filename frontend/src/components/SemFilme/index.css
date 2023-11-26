@@ -1,0 +1,34 @@
+/* Estilo para o seletor .fonte2 */
+
+.fonte_1{
+    color: white;
+    text-align: center;
+    font-size: 24px; /* Ajuste o tamanho do texto conforme necessário */
+    margin-bottom: 10px; /* Adicionei uma pequena margem inferior para separar os textos do botão */
+}
+
+.fonte2_1 {
+font-family: 'Arial', sans-serif;
+font-size: 30px;
+padding: 20px; /* Reduzi o padding para não ocupar muito espaço vertical */
+background-color: #6508c9;
+color: #fff;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+display: block; /* Para que o texto ocupe a largura total */
+margin: 0 auto; /* Centraliza o botão na tela */
+}
+
+/* Estilo para o seletor .fonte2:hover (estado quando o mouse está sobre o botão) */
+.fonte2_1:hover {
+background-color: #2980b9;
+}
+
+.alinha_1 {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column; /* Mudei de 'row' para 'column' para centralizar verticalmente */
+height: 100vh; /* Para ocupar a altura total da tela */
+}
