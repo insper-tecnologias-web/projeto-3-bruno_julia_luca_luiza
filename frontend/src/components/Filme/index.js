@@ -12,7 +12,7 @@ export default function Filme(props) {
         <div className="flex flex-row ">
           <Curtir index={props.id} hide={props.curtir}/>
           <Delete index={props.id} hide={props.curtir}/>
-          <StarRating key={props.id} id={props.id}/>
+          <StarRating key={props.id} id={props.id} ratings={props.ratings} hide={props.curtir}/>
         </div>
           <img className="ease-in duration-300 self-center w-[250px] h-[350px] rounded-xl group-hover:w-full group-hover:h-[380px]" src={props.capa} alt={props.title}/>
         <div className="self-center items-center mt-5">

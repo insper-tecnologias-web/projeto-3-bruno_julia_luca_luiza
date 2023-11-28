@@ -16,7 +16,8 @@ const labels = {
 
 
 export default function StarRating(props) {
-  const [value, setValue] = useState();
+  const esconderCurtir = props.hide;
+  const [value, setValue] = useState(props.ratings);
   const [hover, setHover] = useState(-1);
 
   // console.log(props.index);
@@ -34,28 +35,28 @@ export default function StarRating(props) {
                 console.log(error);
             });
     }
+    if (esconderCurtir === 0) {
+        return (
+              <div className="mr-0 ml-20 text-violet-300" >
+                  <Rating
+                      id={props.id}	
+                      name={props.id}
+                      value={value}
+                      precision={1}
+                      size="small"
 
-  return (
-        <div className="mr-0 ml-20 text-violet-300" >
-            <Rating
-                id={props.id}	
-                name={props.id}
-                value={value}
-                precision={1}
-                size="small"
-
-                onChangeActive={(event, newHover) => {
-                  setHover(newHover);
-                }}
-                onClick={(event, newValue) => {
-                  if (event.target.value !== undefined) {
-                    setValue(event.target.value);
-                    darNota(event.target.value)
-                  }
-                }}
-            />
-          {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
-        </div>
-    );
-}
+                      onChangeActive={(event, newHover) => {
+                        setHover(newHover);
+                      }}
+                      onClick={(event, newValue) => {
+                        if (event.target.value !== undefined) {
+                          setValue(event.target.value);
+                          darNota(event.target.value)
+                        }
+                      }}
+                  />
+                {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+              </div>
+          );
+}}
 

@@ -33,7 +33,7 @@ export default function Favoritos() {
     <div className="flex flex-row flex-wrap justify-center">
     {filmes.map((filme) => (
         <div className="mx-2">
-          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info}>{filme.year} </Filme>
+          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info} ratings={filme.ratings}>{filme.year} </Filme>
         </div>
         ))}
     </div>
