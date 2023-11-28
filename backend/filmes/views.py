@@ -120,15 +120,12 @@ def api_search(request,title):
 @api_view(['POST'])
 def api_ratings(request,filme_id=None, ratings=None):
     if request.method == 'POST':
-        print('*'*100)
-
+        print("entrou")
         try:
             filme = Filme.objects.get(id=filme_id)
             filme.ratings = ratings
-            print(filme)
-            print(ratings)
             filme.save()
-            return Response(status=204)
+            return Response({'message': 'Rating updated successfully'}, status=200)
         except Filme.DoesNotExist:
             raise Http404()
     
