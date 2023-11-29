@@ -5,12 +5,20 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "../Filme";
+import useToken from '../../useToken.js';
 
 export default function Favoritos() {
   const [filmes, setFilmes] = useState([]);
+  const {token, setToken} = useToken();
+  console.log(token);
+  const options = {
+    headers: {
+      'Authorization': `Token ${token}`
+    }
+  };
   const carregaMeusFilmes = () =>{
     axios
-      .get("http://127.0.0.1:8000/filmes")
+      .get("http://127.0.0.1:8000/filmes", options)
       // .get("https://moviefy-backend.onrender.com/filmes")
       .then((res) => setFilmes(res.data));
     }

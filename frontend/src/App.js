@@ -2,27 +2,55 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "./components/Filme";
-import {SearchBar} from "./components/SearchBar";
+import Login from "./components/Login";
 import {Menu} from "./components/Menu";
+import {Logout} from "./components/Logout";
+import {SearchBar} from "./components/SearchBar";
+import useToken from './useToken.js';
 import { Link } from "react-router-dom";
 import "./App.css";
 
 
+
 function App() {
+  console.log("App");
+  const { token, setToken } = useToken();
+  console.log(token)
+
+
   const [filmes, setFilmes] = useState([]);
   function setFilmesCall(filmes){
     setFilmes(filmes);
   }
 
+
+
   const carregaFilmes = () =>{
+    console.log(token);
+    console.log(`Token ${token}`)
+    const options = {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    };
     axios
-      .get("http://127.0.0.1:8000")
+      .get("http://127.0.0.1:8000", options)
       //.get("https://moviefy-backend.onrender.com")
-      .then((res) => setFilmes(res.data));
-    }
-    useEffect(() => {
-      carregaFilmes();
-    },[]);
+      .then((res) => setFilmes(res.data))
+      .catch((err) => console.log(err));
+  };
+
+
+  useEffect(() => {
+    carregaFilmes();
+  },[]);
+  
+  if(token === 'undefined' || token === undefined || token === null || token === 'null') {
+    return <Login setToken={setToken} />
+  }
+
+  
+
   return (
 
     <div className="bg-[rgb(15.7 17.3 20.4)]">
@@ -38,6 +66,10 @@ function App() {
             <div>
               <Menu funcao={setFilmesCall}/>
             </div>
+            <div className="logout">
+              <Logout />
+            </div>
+
 
 
             

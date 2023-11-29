@@ -1,11 +1,14 @@
 from django.shortcuts import render,redirect
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponseForbidden, JsonResponse
 from .models import Filme
 import requests
 from .serializers import FilmSerializer
-
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 #Definindo a URL e os parâmetros da API com catalogo de filmes
 url = "https://moviesdatabase.p.rapidapi.com/titles"
@@ -15,39 +18,9 @@ headers = {
 	"X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
 	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
 }
-
-def index(request):
-    if request.method == 'GET':    
-        all_filmes = []
-        response = requests.get(url, headers=headers, params=querystring)
-        for filmecompleto in response.json()['results'][:]:
-            print(filmecompleto)
-            filme = {}
-            if filmecompleto['primaryImage'] is not None:
-                filme['id'] = filmecompleto['id']
-                filme['capa'] = filmecompleto['primaryImage']['url']
-                filme['title'] = filmecompleto['titleText']['text']
-                filme['year'] = filmecompleto['releaseYear']['year']
-            else:
-                filme['id'] = filmecompleto['id']
-                filme['capa'] = "https://via.placeholder.com/300x200?text=Imagem+N%C3%A3o+Dispon%C3%ADvel"
-                filme['title'] = filmecompleto['titleText']['text']
-                filme['year'] = filmecompleto['releaseYear']['year']
-
-            # all_filmes[filmecompleto['id']] = filme
-            all_filmes.append(filme)
-            return render(request, 'filmes/index.html', {'filmes': response.json()['results']})
-
-            # return JsonResponse(all_filmes)
-
-# def delete(request,filme_id):
-#     if request.method == 'POST':
-#         Filme.objects.filter(id=filme_id).delete()
-#         return redirect('filmes:index')
-    
-
     
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def api_catalogo(request,filme_id=None):
     url = "https://moviesdatabase.p.rapidapi.com/titles/random"
     # querystring = {"sort":"year.decr","limit":"50","endYear":"2023","list":"most_pop_movies"}
@@ -81,14 +54,14 @@ def api_catalogo(request,filme_id=None):
         filme['info'] = filmecompleto['plot']['plotText']['plainText']
         print('FILME:',filme)
 
-        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'], info=filme['info'])
+        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'], info=filme['info'], user=request.user)
         serialized_filme = FilmSerializer(filme)
         return Response(serialized_filme.data)
 
 @api_view(['GET', 'DELETE'])
 def api_filme(request,filme_id=None):
     if request.method == 'GET':
-        films = Filme.objects.all()
+        films = Filme.objects.filter(user=request.user)
         serializer = FilmSerializer(films, many=True)
         return Response(serializer.data)
     if request.method == 'DELETE':
@@ -146,6 +119,36 @@ def api_genre(request):
         return Response(generos)
 
 
+@api_view(['POST'])
+def api_get_token(request):
+    print(request)
+    try:
+        if request.method == 'POST':
+            username = request.data['username']
+            password = request.data['password']
+            print("entrou aqui......")
+            user = authenticate(username=username, password=password)
+            print(user, "user ta aqui")
+            if user is not None:
+                print("user nao é none")
+                token, created = Token.objects.get_or_create(user=user)
+                return JsonResponse({"token":token.key})
+            else:
+                return HttpResponseForbidden()
+    except:
+        return HttpResponseForbidden()
+
+@api_view(['POST'])
+def api_user(request):
+    if request.method == 'POST':
+        username = request.data['username']
+        email = request.data['email']
+        password = request.data['password']
+
+        user = User.objects.create_user(username, email, password)
+        user.save()
+        return Response(status=204)
+    
 @api_view(['GET'])
 def api_genre_search(request, genre):
     if request.method == 'GET':

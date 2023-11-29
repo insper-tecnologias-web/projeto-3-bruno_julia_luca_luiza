@@ -4,11 +4,19 @@ import "./index.css";
 
 export default function Curtir(props) {
     const esconderCurtir = props.hide;
+    const tokenString = sessionStorage.getItem('token');
+    const token = JSON.parse(tokenString);
+
+    const options = {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    };
 
     const FavoritarFilme = async () => {
 
         await axios
-          .post("http://127.0.0.1:8000/", {id:props.index})
+          .post("http://127.0.0.1:8000/", {id:props.index}, options)
         //   .post("https://moviefy-backend.onrender.com/", {id:props.index})
           .then((response) => {
             console.log(response.data);

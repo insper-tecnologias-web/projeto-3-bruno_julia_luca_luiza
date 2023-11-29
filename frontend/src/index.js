@@ -5,6 +5,8 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Favoritos from './components/Favoritos';
 import { SemFilme } from './components/SemFilme';
+import Cadastro from './components/Cadastro';
+import Login from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -16,9 +18,13 @@ const router = createBrowserRouter([
     element: <Favoritos />,
   },
   {
-    path: "erro",
-    element: <SemFilme />,
+    path: "Cadastro",
+    element: <Cadastro />,
   },
+  {
+    path: "Login",
+    element: <Login />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

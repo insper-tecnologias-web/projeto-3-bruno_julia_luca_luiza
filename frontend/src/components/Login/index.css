@@ -1,0 +1,39 @@
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(133, 133, 159);
+    color: white;
+}
+
+/* Estilo para o seletor .fonte2 */
+.fonte3 {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 3px 3px;
+    background-color: #6508c9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .fonte3:hover {
+    background-color: #2980b9;
+  }
+
+  .fonte {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .alinha_2 {
+    display: flex;
+    color: antiquewhite;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    height: 100vh; /* Para ocupar a altura total da tela */
+    border-radius: 30%;
+    }
