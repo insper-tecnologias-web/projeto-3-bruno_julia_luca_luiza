@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('filmes', '0004_filme_info'),
+        ('filmes', '0005_filme_ratings'),
     ]
 
     operations = [

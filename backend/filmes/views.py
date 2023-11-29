@@ -18,37 +18,6 @@ headers = {
 	"X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
 	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
 }
-
-def index(request):
-    if request.method == 'GET':    
-        all_filmes = []
-        response = requests.get(url, headers=headers, params=querystring)
-        for filmecompleto in response.json()['results'][:]:
-            print(filmecompleto)
-            filme = {}
-            if filmecompleto['primaryImage'] is not None:
-                filme['id'] = filmecompleto['id']
-                filme['capa'] = filmecompleto['primaryImage']['url']
-                filme['title'] = filmecompleto['titleText']['text']
-                filme['year'] = filmecompleto['releaseYear']['year']
-            else:
-                filme['id'] = filmecompleto['id']
-                filme['capa'] = "https://via.placeholder.com/300x200?text=Imagem+N%C3%A3o+Dispon%C3%ADvel"
-                filme['title'] = filmecompleto['titleText']['text']
-                filme['year'] = filmecompleto['releaseYear']['year']
-
-            # all_filmes[filmecompleto['id']] = filme
-            all_filmes.append(filme)
-            return render(request, 'filmes/index.html', {'filmes': response.json()['results']})
-
-            # return JsonResponse(all_filmes)
-
-# def delete(request,filme_id):
-#     if request.method == 'POST':
-#         Filme.objects.filter(id=filme_id).delete()
-#         return redirect('filmes:index')
-    
-
     
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -90,7 +59,6 @@ def api_catalogo(request,filme_id=None):
         return Response(serialized_filme.data)
 
 @api_view(['GET', 'DELETE'])
-@permission_classes([IsAuthenticated])
 def api_filme(request,filme_id=None):
     if request.method == 'GET':
         films = Filme.objects.filter(user=request.user)
@@ -107,7 +75,6 @@ def api_filme(request,filme_id=None):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def api_search(request,title):
     if request.method == 'GET':
         querystring = {"exact":"false","info":"base_info","endYear":"2023","titleType":"movie","limit":"50"}
@@ -124,7 +91,6 @@ def api_search(request,title):
         return Response(filmes)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def api_ratings(request,filme_id=None, ratings=None):
     if request.method == 'POST':
         print("entrou")
@@ -137,7 +103,6 @@ def api_ratings(request,filme_id=None, ratings=None):
             raise Http404()
     
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def api_genre(request):
     if request.method == 'GET':
         
@@ -185,7 +150,6 @@ def api_user(request):
         return Response(status=204)
     
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def api_genre_search(request, genre):
     if request.method == 'GET':
         
