@@ -8,7 +8,7 @@ export const Logout = () => {
         window.location.replace('./')
     };
     return (
-        <div className="logout-button">
+        <div className="fonte3">
         <form  onSubmit={() => logout()}>
         <button type="submit"> Logout </button>
 

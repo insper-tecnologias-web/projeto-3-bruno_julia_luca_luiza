@@ -39,9 +39,9 @@ export default function Cadastro (){
     }
 
     return (
-        <div className="signin-wrapper">
-            <h2 className="titulo2"> Fazer Cadastro</h2>
-            <form className="cadastro" onSubmit={cadastrar}>
+        <div className="alinha_3">
+            <h2 className="fonte"> Fazer Cadastro</h2>
+            <form onSubmit={cadastrar}>
             <label>
             <b>Usuario
             </b>
@@ -57,7 +57,7 @@ export default function Cadastro (){
             </b>
             </label>
             <input className="email" type="text"  name="email"  placeholder="email" email={email} onChange={e => setEmail(e.target.value)}/>    
-            <button className="botao" type="submit">Criar usuário</button>
+            <button className="fonte3" type="submit">Criar usuário</button>
             
             </form>
         </div>
