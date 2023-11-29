@@ -85,7 +85,7 @@ def api_catalogo(request,filme_id=None):
         filme['info'] = filmecompleto['plot']['plotText']['plainText']
         print('FILME:',filme)
 
-        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'], info=filme['info'])
+        Filme.objects.create(id=filme['id'],capa=filme['capa'],title=filme['title'], year=filme['year'], info=filme['info'], user=request.user)
         serialized_filme = FilmSerializer(filme)
         return Response(serialized_filme.data)
 
@@ -93,7 +93,7 @@ def api_catalogo(request,filme_id=None):
 @permission_classes([IsAuthenticated])
 def api_filme(request,filme_id=None):
     if request.method == 'GET':
-        films = Filme.objects.all()
+        films = Filme.objects.filter(user=request.user)
         serializer = FilmSerializer(films, many=True)
         return Response(serializer.data)
     if request.method == 'DELETE':
@@ -165,6 +165,7 @@ def api_get_token(request):
             user = authenticate(username=username, password=password)
             print(user, "user ta aqui")
             if user is not None:
+                print("user nao é none")
                 token, created = Token.objects.get_or_create(user=user)
                 return JsonResponse({"token":token.key})
             else:
