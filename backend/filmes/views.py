@@ -42,6 +42,13 @@ def index(request):
             return render(request, 'filmes/index.html', {'filmes': response.json()['results']})
 
             # return JsonResponse(all_filmes)
+
+# def delete(request,filme_id):
+#     if request.method == 'POST':
+#         Filme.objects.filter(id=filme_id).delete()
+#         return redirect('filmes:index')
+    
+
     
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -82,49 +89,71 @@ def api_catalogo(request,filme_id=None):
         serialized_filme = FilmSerializer(filme)
         return Response(serialized_filme.data)
 
-@api_view(['GET'])
-def api_filme(request):
+@api_view(['GET', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def api_filme(request,filme_id=None):
     if request.method == 'GET':
         films = Filme.objects.all()
         serializer = FilmSerializer(films, many=True)
         return Response(serializer.data)
-    
+    if request.method == 'DELETE':
+        try:
+            filme = Filme.objects.get(id=filme_id)
+            print('O filme {filme} foi deletado com exito'.format(filme=filme))
+            filme.delete()
+            return Response(status=204)
+        except Filme.DoesNotExist:
+            raise Http404()
+
+
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_search(request,title):
     if request.method == 'GET':
-        querystring = {"sort":"year.decr","limit":"50","endYear":"2023"}
+        querystring = {"exact":"false","info":"base_info","endYear":"2023","titleType":"movie","limit":"50"}
         headers = {
             "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
             "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
         }
         url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/{id}".format(id=title)
         response = requests.get(url, headers=headers, params=querystring)
-        return Response(response.json()['results'])
+        filmes = response.json()['results']
+
+        print("Sua busca foi realizada com sucesso!")
+
+        return Response(filmes)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def api_ratings(request,filme_id=None, ratings=None):
+    if request.method == 'POST':
+        print("entrou")
+        try:
+            filme = Filme.objects.get(id=filme_id)
+            filme.ratings = ratings
+            filme.save()
+            return Response({'message': 'Rating updated successfully'}, status=200)
+        except Filme.DoesNotExist:
+            raise Http404()
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_genre(request):
+    if request.method == 'GET':
+        
+        headers = {
+            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+        }
+        url = "https://moviesdatabase.p.rapidapi.com/titles/utils/genres"
+        response = requests.get(url, headers=headers)
+
+        generos = response.json()['results']
+        #print(generos)
+
+        return Response(generos)
 
 
-# def api_filme_add(request,filme_id):
-#     if request.method == 'POST':
-#         try: 
-#             url = "https://moviesdatabase.p.rapidapi.com/titles/{filme_id}}"
-#             response = requests.get(url, headers=headers, params=querystring)
-#             filme = response.json()['results']
-#             print(filme)
-#             if filme['primaryImage'] is not None:
-#                 capa = filme['primaryImage']['url']
-#             else:
-#                 capa = "https://via.placeholder.com/300x200?text=Imagem+N%C3%A3o+Dispon%C3%ADvel/"
-#                 title = filme['titleText']['text']
-#                 year = filme['releaseYear']['year']
-#             Filme.objects.create(id=filme_id,capa=capa,title=title['title'], year=year)
-#             films = Filme.objects.all()
-#             serializer = FilmSerializer(films, many=True)
-#             return render(request, 'filmes/index.html', {'filmes': serializer.data})
-#             #return Response(serializer.data)
-#         except: 
-#             films = Filme.objects.all()
-#             serializer = FilmSerializer(films, many=True)
-#             return render(request, 'filmes/index.html', {'filmes': serializer.data})
-#             #return Response(serializer.data)
 @api_view(['POST'])
 def api_get_token(request):
     print(request)
@@ -153,3 +182,35 @@ def api_user(request):
         user = User.objects.create_user(username, email, password)
         user.save()
         return Response(status=204)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_genre_search(request, genre):
+    if request.method == 'GET':
+        
+        headers = {
+            "X-RapidAPI-Key": "974506e2f7msheefcc0e5ef73fd3p101df4jsnff960d6053af",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+        }
+
+        query = {
+            "titleType": "movie",
+            "list": "top_boxoffice_200",
+            "limit":"50",
+            "info":"base_info",
+            "genre": genre
+        }
+
+        url = "https://moviesdatabase.p.rapidapi.com/titles/random"
+
+        try:
+            response = requests.get(url, headers=headers, params=query)
+            response.raise_for_status()  # Isso verifica se houve erro na requisição
+            filmes_genero = response.json()['results']
+            print("Seus filmes foram encontrados com sucesso!")
+            print(filmes_genero)
+            return Response(filmes_genero)
+        except requests.exceptions.RequestException as e:
+            print(f"Erro ao buscar filmes: {e}")
+            return Response({"error": "Erro ao buscar filmes"}, status=500)
+

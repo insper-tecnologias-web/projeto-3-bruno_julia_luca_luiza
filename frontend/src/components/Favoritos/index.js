@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Filme from "../Filme";
 
-export default function Favoritos(props) {
+export default function Favoritos() {
   const [filmes, setFilmes] = useState([]);
   const carregaMeusFilmes = () =>{
     axios
@@ -33,11 +33,10 @@ export default function Favoritos(props) {
     <div className="flex flex-row flex-wrap justify-center">
     {filmes.map((filme) => (
         <div className="mx-2">
-          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info}>{filme.year} </Filme>
-          {/* <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.primaryImage.url} title={filme.titleText.text}>{filme.releaseYear.year}</Filme> */}
+          <Filme key={`filme__${filme.id}`} id={filme.id}capa={filme.capa} title={filme.title} curtir={0} info={filme.info} ratings={filme.ratings}>{filme.year} </Filme>
         </div>
         ))}
-      </div>
+    </div>
     </>
   );
 }
