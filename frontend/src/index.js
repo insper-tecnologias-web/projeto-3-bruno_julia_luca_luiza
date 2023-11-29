@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Favoritos from './components/Favoritos';
+import Cadastro from './components/Cadastro';
+import Login from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ const router = createBrowserRouter([
   {
     path: "filmes",
     element: <Favoritos />,
+  },
+  {
+    path: "Cadastro",
+    element: <Cadastro />,
+  },
+  {
+    path: "Login",
+    element: <Login />,
   }
 ]);
 
