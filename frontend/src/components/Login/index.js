@@ -11,10 +11,11 @@ async function loginUser(username, password){
     "username": username,
     "password": password
   })
-  .then((res) => {
+  .then(async(res) => {
     console.log("ENVIA TOKEN");
     console.log(res.data.token);
-    sessionStorage.setItem('token', JSON.stringify(res.data.token));
+    await sessionStorage.setItem('token', JSON.stringify(res.data.token));
+    window.location.replace('/');
   })
   .catch((err) => {console.log(err);
     window.location.replace('./Cadastro');
@@ -29,11 +30,12 @@ export default function Login({setToken}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser(
+    const token = loginUser(
       username,
       password
     );
-    setToken(token);
+    await setToken(token);
+
   }
   return(
     <div className="alinha_2">

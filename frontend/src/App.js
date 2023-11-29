@@ -15,7 +15,7 @@ import "./App.css";
 function App() {
   console.log("App");
   const { token, setToken } = useToken();
-  console.log(token)
+  console.log('TOKEN',token)
 
 
   const [filmes, setFilmes] = useState([]);
