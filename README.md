@@ -2,4 +2,4 @@
 - [X] 21/11 -  Descrição do filme ao expandir (Luca)
 - [X] 23/11 - Delete dos filmes curtidos e rating do filme (Luiza)
 - [X] 23/11 - Menu de gêneros (Julia)
-- [] 28/11 - Autenticação (Bruno)
+- [X] 28/11 - Autenticação (Bruno)
