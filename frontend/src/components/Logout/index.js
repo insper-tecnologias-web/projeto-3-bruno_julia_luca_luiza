@@ -8,9 +8,11 @@ export const Logout = () => {
         window.location.replace('./')
     };
     return (
+        <div className="logout-button">
         <form  onSubmit={() => logout()}>
         <button type="submit"> Logout </button>
 
         </form>
+        </div>
     );
 };

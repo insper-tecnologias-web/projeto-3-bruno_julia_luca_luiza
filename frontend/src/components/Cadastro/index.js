@@ -22,7 +22,17 @@ export default function Cadastro (){
             "password": senha,
             "email": email
           })
-            .then(()=>{
+            .then( async ()=>{
+                await axios
+                .post('http://127.0.0.1:8000/token/', {
+                    "username": user,
+                    "password": senha
+                  })
+                  .then((res) => {
+                    console.log("ENVIA TOKEN");
+                    console.log(res.data.token);
+                    sessionStorage.setItem('token', JSON.stringify(res.data.token));
+                  })
             
             window.location.replace('/');
         });
