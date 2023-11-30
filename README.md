@@ -1,8 +1,10 @@
-*Link do Video de Demonstração*
-https://youtu.be/2auYI0fWl50
+*Link do Video de Demonstração:* https://youtu.be/2auYI0fWl50
 
-*Link para o site na web*
+*Link para o site na web:* https://projeto3-front-xi.vercel.app/
 
+*Repositorios para deploy do site:*
+- *Frontend:* https://github.com/Brunosl2/Projeto3_Front.git
+- *Backend:* https://github.com/Brunosl2/Projeto3_Back.git
 
 *Sprints*
 - [X] 21/11 - Buscar filme por nome (Julia e Luca)
